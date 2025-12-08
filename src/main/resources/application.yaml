@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: toutcru
+
+  datasource:
+    url: jdbc:mariadb://localhost:3309/${MARIADB_DATABASE}
+    username: ${MARIADB_USER}
+    password: ${MARIADB_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8082
