@@ -1,4 +1,4 @@
-package com.toutcru.toutcru.User;
+package com.toutcru.toutcru.user;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

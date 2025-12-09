@@ -1,4 +1,4 @@
-package com.toutcru.toutcru.User;
+package com.toutcru.toutcru.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

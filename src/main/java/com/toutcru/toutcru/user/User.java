@@ -1,4 +1,4 @@
-package com.toutcru.toutcru.User;
+package com.toutcru.toutcru.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -44,7 +44,6 @@ public class User {
     protected void onCreate(){
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
-
     }
 
     @PreUpdate

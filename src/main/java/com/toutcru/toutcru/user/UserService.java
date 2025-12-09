@@ -1,4 +1,4 @@
-package com.toutcru.toutcru.User;
+package com.toutcru.toutcru.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
