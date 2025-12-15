@@ -1,5 +1,6 @@
 package com.toutcru.toutcru.user;
 
+import com.toutcru.toutcru.user.dto.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
@@ -22,11 +22,11 @@ public class UserService {
         return getUserById(userId);
     }
 
-    public User updateMyAccount(Long userId, UserDTO request) {
+    public User updateMyAccount(Long userId, UserResponseDTO request) {
         User user = getUserById(userId);
 
-        if (request.getFirstname() != null){
-            user.setFirstName(request.getFirstname());
+        if (request.getFirstName() != null){
+            user.setFirstName(request.getFirstName());
         }
         if (request.getEmail() != null){
             user.setEmail(request.getEmail());

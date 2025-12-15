@@ -1,7 +1,9 @@
 package com.toutcru.toutcru.user;
 
+import com.toutcru.toutcru.user.dto.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,23 +14,25 @@ public class UserController {
 
    private final UserService userService;
 
+   //function is in service or not ?
    private Long getCurrentUserId(){
-       UserCustomDetails userDetails = (UserCustomDetails) SecurityContextHolder
+       Object principal = SecurityContextHolder
                .getContext()
                .getAuthentication()
                .getPrincipal();
-       return userDetails.getId();
+       if (principal instanceof UserCustomDetails userDetails){
+           return userDetails.getId();
+       }
+       throw new AuthenticationCredentialsNotFoundException("Utilisateur non authentifié");
    }
 
-    //récuperer le user
     @GetMapping("/me")
-    public ResponseEntity<User> getMyAccount() {
+    public ResponseEntity<UserResponseDTO> getMyAccount() {
         return ResponseEntity.ok(userService.getMe(getCurrentUserId()));
     }
 
-    //modifier le user connecté
     @PutMapping ("/me")
-    public ResponseEntity<User> updateMyAccount(@RequestBody UserDTO request) {
+    public ResponseEntity<UserResponseDTO> updateMyAccount(@RequestBody UserResponseDTO request) {
         return ResponseEntity.ok(userService.updateMyAccount(getCurrentUserId(), request));
     }
 

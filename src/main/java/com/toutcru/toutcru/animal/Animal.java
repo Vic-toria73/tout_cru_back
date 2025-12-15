@@ -1,5 +1,6 @@
 package com.toutcru.toutcru.animal;
 
+import com.toutcru.toutcru.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,10 +18,12 @@ import java.time.LocalDateTime;
 public class Animal {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -69,7 +72,6 @@ public class Animal {
     protected void onCreate(){
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
-
     }
 
     @PreUpdate

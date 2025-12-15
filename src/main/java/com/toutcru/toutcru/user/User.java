@@ -1,11 +1,14 @@
 package com.toutcru.toutcru.user;
 
+import com.toutcru.toutcru.animal.Animal;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table (name = "user")
@@ -24,15 +27,16 @@ public class User {
     private String email;
 
     @NotBlank(message = "Password cannot be blank")
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Column
     private String password;
 
     @NotBlank(message = "First name cannot be blank")
     @Size(min = 2, max = 255, message = "First name must be between 2 and 255 characters")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "animal_id")
-    private Long animalId;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Animal> animals = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
