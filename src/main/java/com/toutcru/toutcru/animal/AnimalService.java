@@ -1,5 +1,4 @@
 package com.toutcru.toutcru.animal;
 
-public enum Species {
-    DOG
+public class AnimalService {
 }
