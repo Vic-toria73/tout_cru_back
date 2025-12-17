@@ -34,7 +34,7 @@ public class User {
     @Size(min = 2, max = 255, message = "First name must be between 2 and 255 characters")
     @Column(name = "first_name")
     private String firstName;
-
+    
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Animal> animals = new ArrayList<>();
 

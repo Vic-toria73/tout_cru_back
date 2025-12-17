@@ -9,5 +9,4 @@ public class UserResponseDTO {
     private String firstName;
     private String email;
 
-
 }

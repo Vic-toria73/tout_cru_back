@@ -1,6 +1,5 @@
 package com.toutcru.toutcru.user;
 
-import com.toutcru.toutcru.user.dto.UserResponseDTO;
 import com.toutcru.toutcru.user.dto.UserUpdateRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserResponseDTO userResponseDTO;
-
 
     public Long getCurrentUserId(){
         Object principal = SecurityContextHolder
