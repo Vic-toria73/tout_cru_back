@@ -1,9 +1,10 @@
 package com.toutcru.toutcru.configuration;
 
-import org.springframework.context.annotation.Bean;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class SecurityConfig {
 
+@Configuration
+@RequiredArgsConstructor
+public class SecurityConfig {
 }

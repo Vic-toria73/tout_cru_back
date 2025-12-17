@@ -1,4 +1,4 @@
-package com.toutcru.toutcru.animal;
+package com.toutcru.toutcru.animal.enums;
 
 public enum SpecialCondition {
     OVERWEIGHT,

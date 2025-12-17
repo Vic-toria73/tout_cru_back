@@ -1,13 +1,16 @@
 package com.toutcru.toutcru.animal;
 
+import com.toutcru.toutcru.animal.enums.ActivityLevel;
+import com.toutcru.toutcru.animal.enums.LifeStage;
 import com.toutcru.toutcru.user.User;
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,6 +18,8 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "species", discriminatorType = DiscriminatorType.STRING)
 public class Animal {
 
     @Id
@@ -23,11 +28,10 @@ public class Animal {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User userId;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private Species species;
+    private String name;
 
     @Column
     private Long breedId;
@@ -36,7 +40,7 @@ public class Animal {
     private Long pictureId;
 
     @Column
-    private Long birth;
+    private LocalDate birth;
 
     @Column
     private BigDecimal weight;
@@ -49,12 +53,8 @@ public class Animal {
     @Enumerated(EnumType.STRING)
     private LifeStage lifeStage;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private SpecialCondition specialCondition;
-
-    @Column
-    private Text treatments;
+    @Column(columnDefinition = "TEXT")
+    private String treatments;
 
     @Column (name = "ration_id")
     private Long rationId;

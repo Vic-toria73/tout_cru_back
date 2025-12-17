@@ -35,7 +35,7 @@ public class User {
     @Column(name = "first_name")
     private String firstName;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Animal> animals = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
