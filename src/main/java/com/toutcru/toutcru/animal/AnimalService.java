@@ -4,15 +4,19 @@ import com.toutcru.toutcru.animal.dto.AnimalCreateRequestDTO;
 import com.toutcru.toutcru.animal.dto.AnimalResponseDTO;
 import com.toutcru.toutcru.user.User;
 import com.toutcru.toutcru.user.UserRepository;
+import com.toutcru.toutcru.user.UserService;
 import jakarta.persistence.DiscriminatorValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AnimalService {
     private final AnimalRepository animalRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     public AnimalResponseDTO createAnimal(AnimalCreateRequestDTO dto, Long userId) {
         User user = userRepository.findById(userId)
@@ -20,7 +24,7 @@ public class AnimalService {
 
         Animal animal = createAnimalBySpecies(dto);
 
-        animal.setUserId(user);
+        animal.setUser(user);
         animal.setName(dto.getName());
         animal.setBirth(dto.getBirth());
         animal.setWeight(dto.getWeight());
@@ -28,6 +32,14 @@ public class AnimalService {
         Animal savedAnimal = animalRepository.save(animal);
 
         return mapToDTO(savedAnimal);
+    }
+
+    public List<AnimalResponseDTO> getMyAnimals() {
+        Long currentUserId = userService.getCurrentUserId();
+        List<Animal> animals = animalRepository.findAllByUser_Id(currentUserId);
+        return animals.stream()
+                .map(this::mapToDTO)
+                .toList();
     }
 
     private Animal createAnimalBySpecies(AnimalCreateRequestDTO dto) {
@@ -39,7 +51,7 @@ public class AnimalService {
             }
             // CAT ?
 
-            default -> throw new IllegalArgumentException("Unknown species" + dto.getSpecies());
+            default -> throw new IllegalArgumentException("Unknown species: " + dto.getSpecies());
         };
     }
 

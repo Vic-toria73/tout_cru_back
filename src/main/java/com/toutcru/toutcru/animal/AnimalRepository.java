@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
-    List<Animal> findAllByUserId(Long userId);
-    Optional<Animal> findByIdAndUserId(Long id, Long userId);
+    List<Animal> findAllByUser_Id(Long userId);
+    Optional<Animal> findByIdAndUser_Id(Long id, Long userId);
 }

@@ -1,5 +1,6 @@
 package com.toutcru.toutcru.user;
 
+import com.toutcru.toutcru.user.dto.UserResponseDTO;
 import com.toutcru.toutcru.user.dto.UserUpdateRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,11 +31,12 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
     }
 
-    public User getMe() {
-        return getUserById(getCurrentUserId());
+    public UserResponseDTO getMe() {
+        User user =getUserById(getCurrentUserId());
+        return mapToResponseDTO(user);
     }
 
-    public User updateMyAccount(UserUpdateRequestDTO request) {
+    public UserResponseDTO updateMyAccount(UserUpdateRequestDTO request) {
         User user = getUserById(getCurrentUserId());
 
         if (request.getFirstName() != null){
@@ -43,7 +45,15 @@ public class UserService {
         if (request.getEmail() != null){
             user.setEmail(request.getEmail());
         }
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return mapToResponseDTO(savedUser);
     }
 
+    private UserResponseDTO mapToResponseDTO(User user) {
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .email(user.getEmail())
+                .build();
+    }
 }
