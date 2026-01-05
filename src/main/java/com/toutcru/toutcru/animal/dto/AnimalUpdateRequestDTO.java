@@ -4,15 +4,16 @@ import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 public class AnimalUpdateRequestDTO {
     @Column
-    private Long pictureId;
-
+    private String name;
     @Column
-    private Long birth;
-
+    private LocalDate birth;
+    @Column
+    private Long pictureId;
     @Column
     private BigDecimal weight;
 }

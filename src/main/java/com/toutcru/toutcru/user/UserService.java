@@ -32,7 +32,7 @@ public class UserService {
     }
 
     public UserResponseDTO getMe() {
-        User user =getUserById(getCurrentUserId());
+        User user = getUserById(getCurrentUserId());
         return mapToResponseDTO(user);
     }
 
