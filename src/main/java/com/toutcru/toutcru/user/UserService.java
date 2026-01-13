@@ -1,11 +1,13 @@
 package com.toutcru.toutcru.user;
 
+import com.toutcru.toutcru.user.dto.UserCreateRequestDTO;
 import com.toutcru.toutcru.user.dto.UserResponseDTO;
 import com.toutcru.toutcru.user.dto.UserUpdateRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,13 +16,34 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public Long getCurrentUserId(){
+    public UserResponseDTO createUser(UserCreateRequestDTO dto) {
+        User user = new User();
+
+        user.setEmail(dto.getEmail());
+        user.setFirstName(dto.getFirstName());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+
+        User savedUser = userRepository.save(user);
+
+        return mapToDTO(savedUser);
+    }
+
+    public UserResponseDTO mapToDTO(User user) {
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .email(user.getEmail())
+                .build();
+    }
+
+    public Long getCurrentUserId() {
         Object principal = SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-        if (principal instanceof UserCustomDetails userDetails){
+        if (principal instanceof UserCustomDetails userDetails) {
             return userDetails.getId();
         }
         throw new AuthenticationCredentialsNotFoundException("Unauthenticated user");
@@ -39,10 +62,10 @@ public class UserService {
     public UserResponseDTO updateMyAccount(UserUpdateRequestDTO request) {
         User user = getUserById(getCurrentUserId());
 
-        if (request.getFirstName() != null){
+        if (request.getFirstName() != null) {
             user.setFirstName(request.getFirstName());
         }
-        if (request.getEmail() != null){
+        if (request.getEmail() != null) {
             user.setEmail(request.getEmail());
         }
         User savedUser = userRepository.save(user);
