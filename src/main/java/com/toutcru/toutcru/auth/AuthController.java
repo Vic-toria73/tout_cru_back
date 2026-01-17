@@ -2,7 +2,7 @@ package com.toutcru.toutcru.auth;
 
 import com.toutcru.toutcru.auth.dto.LoginRequestDTO;
 import com.toutcru.toutcru.auth.dto.LoginResponseDTO;
-import com.toutcru.toutcru.user.dto.UserResponseDTO;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
