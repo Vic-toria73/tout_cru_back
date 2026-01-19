@@ -1,5 +1,6 @@
 package com.toutcru.toutcru.user;
 
+import com.toutcru.toutcru.user.dto.UserUpdatePasswordRequestDTO;
 import com.toutcru.toutcru.user.dto.UserCreateRequestDTO;
 import com.toutcru.toutcru.user.dto.UserResponseDTO;
 import com.toutcru.toutcru.user.dto.UserUpdateRequestDTO;
@@ -70,6 +71,19 @@ public class UserService {
         }
         User savedUser = userRepository.save(user);
         return mapToResponseDTO(savedUser);
+    }
+
+    public void updateMyPassword (UserUpdatePasswordRequestDTO request) {
+        User user = getUserById(getCurrentUserId());
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+            throw new RuntimeException("Old password is incorrect");
+        }
+
+        if (!request.getNewPassword().equals(request.getConfirmPassword())) {
+            throw new RuntimeException("Passwords do not match");
+        }
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
     }
 
     private UserResponseDTO mapToResponseDTO(User user) {

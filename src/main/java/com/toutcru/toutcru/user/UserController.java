@@ -1,6 +1,6 @@
 package com.toutcru.toutcru.user;
 
-import com.toutcru.toutcru.animal.dto.AnimalResponseDTO;
+import com.toutcru.toutcru.user.dto.UserUpdatePasswordRequestDTO;
 import com.toutcru.toutcru.user.dto.UserCreateRequestDTO;
 import com.toutcru.toutcru.user.dto.UserResponseDTO;
 import com.toutcru.toutcru.user.dto.UserUpdateRequestDTO;
@@ -31,6 +31,11 @@ public class UserController {
     @PutMapping("/me")
     public ResponseEntity<UserResponseDTO> updateMyAccount(@RequestBody UserUpdateRequestDTO request) {
         return ResponseEntity.ok(userService.updateMyAccount(request));
+    }
+
+    @PutMapping("/me/password")
+    public ResponseEntity<Void> updateMyPassword(@RequestBody @Valid UserUpdatePasswordRequestDTO request) { userService.updateMyPassword(request);
+        return ResponseEntity.ok().build();
     }
 
 }
