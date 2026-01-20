@@ -10,7 +10,11 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
 server:
   port: 8082
+
+jwt:
+  secret: ${jwt.secret-key}
+  expiration: ${jwt.expiration-time}
