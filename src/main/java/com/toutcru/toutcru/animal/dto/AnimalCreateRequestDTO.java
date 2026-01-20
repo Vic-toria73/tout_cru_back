@@ -1,9 +1,13 @@
 package com.toutcru.toutcru.animal.dto;
 
+import com.toutcru.toutcru.animal.enums.ActivityLevel;
+import com.toutcru.toutcru.animal.enums.LifeStage;
+import com.toutcru.toutcru.animal.enums.SpecialCondition;
 import jakarta.persistence.Column;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import lombok.Data;
 
@@ -37,7 +41,11 @@ public class AnimalCreateRequestDTO {
     @Column
     private BigDecimal weight;
 
-//    private ActivityLevel activityLevel;
-//    private LifeStage lifeStage;
-//    private SpecialCondition specialCondition;
+    @NotNull(message = "Activity level cannot be null")
+    private ActivityLevel activityLevel;
+
+    @NotNull(message = "Life stage cannot be null")
+    private LifeStage lifeStage;
+
+
 }
