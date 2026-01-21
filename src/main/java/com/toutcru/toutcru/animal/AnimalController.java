@@ -17,8 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnimalController {
 
-    private AnimalService animalService;
-    private UserService userService;
+    private final AnimalService animalService;
+    private final UserService userService;
 
     @PostMapping
     public ResponseEntity<AnimalResponseDTO> createAnimal(@RequestBody @Valid AnimalCreateRequestDTO dto ) {
