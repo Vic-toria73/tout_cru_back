@@ -17,8 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnimalController {
 
-    private AnimalService animalService;
-    private UserService userService;
+    private final AnimalService animalService;
+    private final UserService userService;
 
     @PostMapping
     public ResponseEntity<AnimalResponseDTO> createAnimal(@RequestBody @Valid AnimalCreateRequestDTO dto ) {
@@ -36,8 +36,7 @@ public class AnimalController {
     public ResponseEntity<AnimalResponseDTO> getMyAnimal(@PathVariable Long animalId){
         return ResponseEntity.ok(animalService.getMyAnimal(animalId));
     }
-//
-//    @PutMapping("/me/{id}")
+
     @PutMapping("/me/{animalId}")
     public ResponseEntity<AnimalResponseDTO> updateMyAnimal(
             @PathVariable Long animalId,
@@ -45,8 +44,7 @@ public class AnimalController {
        AnimalResponseDTO result = animalService.updateMyAnimal(animalId, request);
     return ResponseEntity.ok(result);
 }
-//
-//    @DeleteMapping("/me")
+
     @DeleteMapping("/me/{animalId}")
     public ResponseEntity<Void> deleteMyAnimal(@PathVariable Long animalId) {
         animalService.deleteMyAnimal(animalId);
