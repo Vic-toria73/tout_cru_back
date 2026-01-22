@@ -28,7 +28,6 @@ public class AnimalCreateRequestDTO {
     @Column
     private Long pictureId;
 
-    @NotBlank(message = "Birth cannot be blank")
     @Past(message = "Birth must be in the past")
     @Column
     private LocalDate birth;
