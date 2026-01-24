@@ -1,15 +1,12 @@
 package com.toutcru.toutcru.animal;
 
 import com.toutcru.toutcru.breed.Breed;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 @DiscriminatorValue("DOG")
 public class Dog extends Animal{
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "breed_id")
     private Breed breed;
 }

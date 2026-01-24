@@ -34,7 +34,7 @@ public class Animal {
     @Column
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "breed_id")
     private Breed breed;
 
@@ -45,7 +45,7 @@ public class Animal {
     private LocalDate birth;
 
     @Column
-    private BigDecimal weight;
+    private Double weight;
 
     @Column
     @Enumerated(EnumType.STRING)

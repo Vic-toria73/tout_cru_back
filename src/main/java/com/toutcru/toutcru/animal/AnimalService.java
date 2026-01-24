@@ -5,6 +5,7 @@ import com.toutcru.toutcru.animal.dto.AnimalResponseDTO;
 import com.toutcru.toutcru.animal.dto.AnimalUpdateRequestDTO;
 import com.toutcru.toutcru.breed.Breed;
 import com.toutcru.toutcru.breed.BreedRepository;
+import com.toutcru.toutcru.breed.dto.BreedResponseDTO;
 import com.toutcru.toutcru.user.User;
 import com.toutcru.toutcru.user.UserRepository;
 import com.toutcru.toutcru.user.UserService;
@@ -32,6 +33,9 @@ public class AnimalService {
         animal.setName(dto.getName());
         animal.setBirth(dto.getBirth());
         animal.setWeight(dto.getWeight());
+        animal.setActivityLevel(dto.getActivityLevel());
+        animal.setLifeStage(dto.getLifeStage());
+        animal.setTreatments(dto.getTreatments());
 
         Animal savedAnimal = animalRepository.save(animal);
 
@@ -60,6 +64,22 @@ public class AnimalService {
         dto.setSpecies(animal.getClass().getAnnotation(DiscriminatorValue.class).value());
         dto.setBirth(animal.getBirth());
         dto.setWeight(animal.getWeight());
+        dto.setActivityLevel(animal.getActivityLevel());
+        dto.setLifeStage(animal.getLifeStage());
+        dto.setTreatments(animal.getTreatments());
+
+        if (animal instanceof Dog dog) {
+            Breed breed = dog.getBreed();
+            if (breed != null) {
+                BreedResponseDTO breedDTO = new BreedResponseDTO();
+                breedDTO.setId(breed.getId());
+                breedDTO.setName(breed.getName());
+                dto.setBreed(breedDTO);
+            }
+        }
+
+        dto.setCreatedAt(animal.getCreatedAt());
+        dto.setUpdatedAt(animal.getUpdatedAt());
 
         return dto;
     }
@@ -91,6 +111,9 @@ public class AnimalService {
         }
         if (dto.getPictureId() !=null) {
             animal.setPictureId(dto.getPictureId());
+        }
+        if (dto.getWeight() != null) {
+            animal.setWeight(dto.getWeight());
         }
 
         Animal savedAnimal = animalRepository.save(animal);

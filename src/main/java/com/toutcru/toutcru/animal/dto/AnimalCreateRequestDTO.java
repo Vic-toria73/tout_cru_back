@@ -37,9 +37,11 @@ public class AnimalCreateRequestDTO {
 
     @DecimalMin(value = "0.1", message = "weight must be greater than 0")
     @Column
-    private BigDecimal weight;
+    private Double weight;
 
     private ActivityLevel activityLevel;
     private LifeStage lifeStage;
     private SpecialCondition specialCondition;
+    private String treatments;
+
 }
