@@ -3,6 +3,8 @@ package com.toutcru.toutcru.animal;
 import com.toutcru.toutcru.animal.dto.AnimalCreateRequestDTO;
 import com.toutcru.toutcru.animal.dto.AnimalResponseDTO;
 import com.toutcru.toutcru.animal.dto.AnimalUpdateRequestDTO;
+import com.toutcru.toutcru.breed.Breed;
+import com.toutcru.toutcru.breed.BreedRepository;
 import com.toutcru.toutcru.user.User;
 import com.toutcru.toutcru.user.UserRepository;
 import com.toutcru.toutcru.user.UserService;
@@ -18,6 +20,7 @@ public class AnimalService {
     private final AnimalRepository animalRepository;
     private final UserRepository userRepository;
     private final UserService userService;
+    private final BreedRepository breedRepository;
 
     public AnimalResponseDTO createAnimal(AnimalCreateRequestDTO dto, Long userId) {
         User user = userRepository.findById(userId)
@@ -39,7 +42,9 @@ public class AnimalService {
         return switch (dto.getSpecies()){
             case "DOG" -> {
                 Dog dog = new Dog();
-                dog.setBreedId(dto.getBreedId());
+                Breed breed = breedRepository.findById(Math.toIntExact(dto.getBreedId()))
+                        .orElseThrow(() -> new RuntimeException("Race non trouvée"));
+                dog.setBreed(breed);
                 yield dog;
             }
             // CAT ?

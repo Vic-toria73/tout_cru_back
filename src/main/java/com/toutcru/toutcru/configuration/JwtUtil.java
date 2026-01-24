@@ -19,10 +19,10 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret-key}")
+    @Value("${JWT_SECRET_KEY}")
     private String secret;
 
-    @Value("${jwt.expiration-time}")
+    @Value("${JWT_EXPIRATION_TIME}")
     private Long expiration;
 
     public String generateToken(String email) {

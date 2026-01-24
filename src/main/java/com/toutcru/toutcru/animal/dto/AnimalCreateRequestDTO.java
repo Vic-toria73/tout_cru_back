@@ -1,5 +1,8 @@
 package com.toutcru.toutcru.animal.dto;
 
+import com.toutcru.toutcru.animal.enums.ActivityLevel;
+import com.toutcru.toutcru.animal.enums.LifeStage;
+import com.toutcru.toutcru.animal.enums.SpecialCondition;
 import jakarta.persistence.Column;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMin;
@@ -28,7 +31,6 @@ public class AnimalCreateRequestDTO {
     @Column
     private Long pictureId;
 
-    @NotBlank(message = "Birth cannot be blank")
     @Past(message = "Birth must be in the past")
     @Column
     private LocalDate birth;
@@ -37,7 +39,7 @@ public class AnimalCreateRequestDTO {
     @Column
     private BigDecimal weight;
 
-//    private ActivityLevel activityLevel;
-//    private LifeStage lifeStage;
-//    private SpecialCondition specialCondition;
+    private ActivityLevel activityLevel;
+    private LifeStage lifeStage;
+    private SpecialCondition specialCondition;
 }
