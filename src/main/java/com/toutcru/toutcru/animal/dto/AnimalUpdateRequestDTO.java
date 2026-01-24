@@ -15,5 +15,5 @@ public class AnimalUpdateRequestDTO {
     @Column
     private Long pictureId;
     @Column
-    private BigDecimal weight;
+    private Double weight;
 }

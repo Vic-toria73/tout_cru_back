@@ -2,6 +2,7 @@ package com.toutcru.toutcru.animal;
 
 import com.toutcru.toutcru.animal.enums.ActivityLevel;
 import com.toutcru.toutcru.animal.enums.LifeStage;
+import com.toutcru.toutcru.breed.Breed;
 import com.toutcru.toutcru.user.User;
 import jakarta.persistence.*;
 
@@ -33,17 +34,18 @@ public class Animal {
     @Column
     private String name;
 
-    @Column
-    private Long breedId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "breed_id")
+    private Breed breed;
 
-    @Column
+    @Column(nullable = true)
     private Long pictureId;
 
     @Column
     private LocalDate birth;
 
     @Column
-    private BigDecimal weight;
+    private Double weight;
 
     @Column
     @Enumerated(EnumType.STRING)
