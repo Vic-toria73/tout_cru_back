@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Picture {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
@@ -35,6 +36,10 @@ public class Picture {
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+    @PreUpdate
+    public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
 }
